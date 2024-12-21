@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmar Asistencia</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>¡Bienvenidos!</h1>
+    <p>Registra tu nombre para acceder a la invitación personalizada.</p>
+    <form id="formularioInicio">
+      <label for="nombre">Tu Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+      <button type="submit">Acceder</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('formularioInicio').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      if (nombre) {
+        localStorage.setItem('nombreInvitado', nombre);
+        window.location.href = 'invitacion.html';
+      }
+    });
+  </script>
+</body>
+</html>

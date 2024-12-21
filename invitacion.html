@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación XV Años</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input, select, button {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Invitación a los XV Años de <span id="nombreInvitado">[Nombre]</span></h1>
+    <p>Confirma tu asistencia y dinos cuántos acompañantes llevarás.</p>
+    <form id="formularioConfirmacion">
+      <input type="email" id="correo" placeholder="Correo Electrónico" required>
+      <input type="tel" id="celular" placeholder="Número de Celular" required>
+      <select id="invitados">
+        <option value="0">0 Acompañantes</option>
+        <option value="1">1 Acompañante</option>
+        <option value="2">2 Acompañantes</option>
+        <option value="3">3 Acompañantes</option>
+      </select>
+      <button type="submit">Confirmar Asistencia</button>
+    </form>
+  </div>
+  <script>
+    // Establecer el nombre del invitado desde LocalStorage
+    const nombreInvitado = localStorage.getItem('nombreInvitado') || 'Invitado';
+    document.getElementById('nombreInvitado').innerText = nombreInvitado;
+
+    // Manejar el formulario
+    document.getElementById('formularioConfirmacion').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const datos = {
+        nombre: nombreInvitado,
+        correo: document.getElementById('correo').value,
+        celular: document.getElementById('celular').value,
+        invitados: document.getElementById('invitados').value
+      };
+      fetch('https://script.google.com/macros/s/AKfycbx88fNFC1R6b91bRFVkeeKArQtaFyNsKP0g3ikb2R4s75s_0guvqmfcQdmbxncl3lQiaQ/exec', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert("¡Tu confirmación ha sido registrada!");
+          } else {
+            alert("Hubo un error: " + data.message);
+          }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
