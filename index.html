@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación XV Años</title>
+    <title>Ximena Vázquez</title>
+    <meta property="og:title" content="Mis XV Años">
+    <meta property="og:description" content="¡Estás invitado a los XV Años de Ximena Vázquez!">
+    <meta property="og:image" content="https://cinemafaith.com/wp-content/uploads/2017/04/beauty-3-final-2-1050x438.jpg">
+    <link rel="shortcut icon" href="https://static.wixstatic.com/media/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png/v1/fill/w_480,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png" type="image/webp">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body onclick="PlayAudio()">
@@ -16,16 +20,16 @@
     <div class="invitation-container">
         <header>
             <h1>¡Estás Invitado!</h1>
-            <h2>A los XV años de <strong>María Fernanda</strong></h2>
+            <h2>A los XV años de <strong>Ximena Vázquez</strong></h2>
         </header>
         <div class="details">
-            <p>Fecha: <strong>Sábado, 20 de Abril de 2025</strong></p>
-            <p>Hora: <strong>6:00 PM</strong></p>
-            <p>Ubicación: <strong>Salón Elegance, Ciudad de México</strong></p>
+            <p>Fecha: <strong>Sábado, 19 de Julio de 2025</strong></p>
+            <p>Hora: <strong>5:00 PM</strong></p>
+            <p>Ubicación: <strong>Salón Ébano, Querétaro</strong></p>
         </div>
         <button onclick="openModal()">Confirmar Asistencia</button>
         <footer>
-            <p>Con cariño, familia López Martínez.</p>
+            <p>Con cariño, familia Vázquez Martínez.</p>
         </footer>
     </div>
 
@@ -33,8 +37,8 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3>Confirmar Asistencia</h3>
-            <form id="rsvpForm" action="https://script.google.com/macros/s/AKfycbxind0liyG4eIJraAonRXYcwPenNto95FcQRrLOLWEMVevGHw-24CgPDv-vBQ4ziBDzvw/exec" method="post">
-                <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
+            <form id="rsvpForm" action="https://script.google.com/macros/s/AKfycbwGAerX29o1jFLWp68oD1dfL0MeEmi2MuL0X5ncYW9omCkDOys6XDHhtQlxIiOcABREaA/exec" method="post">
+                <input type="text" id="name" name="name" placeholder="Tu nombre completo" required minlength="8">
                 <input type="number" id="guests" name="guests" placeholder="Número de invitados" min="1" max="8" required>
                 <button type="submit">Enviar</button>
             </form>
