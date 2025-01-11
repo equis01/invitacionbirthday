@@ -33,9 +33,9 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3>Confirmar Asistencia</h3>
-            <form id="rsvpForm">
-                <input type="text" id="name" placeholder="Tu nombre completo" required>
-                <input type="number" id="guests" placeholder="Número de invitados" min="1" max="8" required>
+            <form id="rsvpForm" action="https://script.google.com/macros/s/AKfycbwl6YLKV6zAeyB1KLW0pnW74VB-YS1EgEhWNXPNK20sechrdv_iJdVQhRUmHNpk-A2MsQ/exec" method="post">
+                <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
+                <input type="number" id="guests" name="guests" placeholder="Número de invitados" min="1" max="8" required>
                 <button type="submit">Enviar</button>
             </form>
             <button class="close-btn" onclick="closeModal()">Cerrar</button>
