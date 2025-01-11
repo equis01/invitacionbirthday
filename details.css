@@ -1,0 +1,236 @@
+/* Fondo general con un toque elegante */
+body {
+    font-family: 'Playfair Display', serif; /* Tipografía elegante */
+    background-image: url('https://www.xtrafondos.com/wallpapers/la-bella-y-la-bestia-2936.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra sutil para el texto */
+  }
+  
+  /* Estilo para el header: Añadir una animación suave */
+  header {
+    background: rgba(0, 0, 128, 0.8); /* Azul Bestia con más saturación */
+    padding: 50px 0;
+    text-align: center;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2); /* Sombra para crear profundidad */
+    border-bottom: 5px solid #FFD700; /* Dorado para mayor lujo */
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    color: #FFD700; /* Dorado brillante */
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); /* Efecto de resplandor dorado */
+  }
+  
+  /* Animación para el fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Sección con el mensaje central y detalles */
+  .section {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.95); /* Blanco con alta opacidad */
+    border-radius: 20px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(8px); /* Fondo desenfocado para mayor sofisticación */
+  }
+  
+  .section:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Contador de tiempo */
+  .countdown {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 40px;
+    color: #FFD700; /* Dorado */
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.9); /* Resplandor para el toque mágico */
+  }
+  
+  /* Sección de ubicación y dirección */
+  .location {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+    animation: slideUp 1s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .location img {
+    width: 220px;
+    height: 160px;
+    border-radius: 15px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease;
+  }
+  
+  .location img:hover {
+    transform: scale(1.05); /* Efecto de zoom sutil en la imagen */
+  }
+  
+  .location .info {
+    flex: 1;
+    margin-left: 30px;
+  }
+  
+  .location .info a {
+    color: #1E90FF; /* Azul Bestia */
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+  }
+  
+  .location .info a:hover {
+    color: #FFD700; /* Dorado brillante */
+  }
+  
+  /* Botones de llamada a la acción */
+  .buttons a {
+    display: inline-block;
+    background-color: #1E90FF; /* Azul Bestia */
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 18px 40px;
+    margin: 20px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .buttons a:hover {
+    background-color: #FFD700; /* Dorado brillante */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Footer, elegante y con detalles dorados */
+  footer {
+    background: rgba(0, 0, 128, 0.8); /* Azul Bestia con más profundidad */
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0px -5px 30px rgba(0, 0, 0, 0.2);
+    border-top: 5px solid #FFD700;
+  }
+  
+  footer a {
+    color: #FFD700; /* Dorado brillante */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+    transform: scale(1.05);
+  }
+  
+  /* Modal para información adicional */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 60px;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 40px;
+    border: 2px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  .modal-close {
+    color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    text-decoration: none;
+  }
+  
+  .modal-close:hover,
+  .modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Estilos responsivos para pantallas pequeñas */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2.8rem;
+    }
+  
+    .section {
+      width: 90%;
+      padding: 30px;
+    }
+  
+    .buttons a {
+      font-size: 1.2rem;
+      padding: 15px 30px;
+    }
+  
+    .location {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .location img {
+      width: 100%;
+    }
+  }  

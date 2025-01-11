@@ -3,36 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de QR</title>
+  <title>Ximena Vázquez</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+  <meta property="og:title" content="Mis XV Años">
+    <meta property="og:description" content="¡Estás invitado a los XV Años de Ximena Vázquez!">
+    <meta property="og:image" content="https://cinemafaith.com/wp-content/uploads/2017/04/beauty-3-final-2-1050x438.jpg">
+    <link rel="shortcut icon" href="https://static.wixstatic.com/media/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png/v1/fill/w_480,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png" type="image/webp">
+  <link rel="stylesheet" href="details.css">
 </head>
 <body>
-  <h3>Generador de QR para invitación</h3>
-  <div id="qrCode"></div>
 
-  <script>
-    // Obtener los parámetros de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id'); // Obtener el valor del parámetro 'id'
+  <!-- Header -->
+  <header>
+    <h1>Mis XV Años</h1>
+  </header>
 
-    // Verificar si se encontró el parámetro 'id'
-    if (id) {
-      // Generar el código QR con el valor de 'id'
-      const qrText = decodeURIComponent(id); // Decodificar el valor del parámetro
-      QRCode.toDataURL(qrText, function (error, url) {
-        if (error) {
-          console.error(error);
-          document.getElementById('qrCode').innerText = 'Error generando el QR';
-        } else {
-          // Mostrar la imagen QR generada
-          const imgElement = document.createElement('img');
-          imgElement.src = url;
-          document.getElementById('qrCode').appendChild(imgElement);
-        }
-      });
-    } else {
-      document.getElementById('qrCode').innerText = 'No se encontró el parámetro "id"';
-    }
-  </script>
+  <!-- Cuenta regresiva -->
+  <div class="countdown" id="countdown"></div>
+
+  <!-- Sección de Pase de Invitación -->
+  <div class="section">
+    <h3>Pase de Invitación</h3>
+    <div id="qrCode"></div>
+  </div>
+
+  <!-- Sección de Lista de Deseos -->
+  <div class="section">
+    <div class="list-header">
+      <p>Lista de Deseos</p>
+      <div class="buttons">
+        <a href="https://www.amazon.com/wishlist" target="_blank">Amazon Wish List</a>
+        <a href="https://www.liverpool.com.mx/mensaje/regalos" target="_blank">Liverpool Mesa de Regalos</a>
+        <!-- Botón Transferencia -->
+        <a href="javascript:void(0)" id="transferButton">Transferencia</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Transferencia -->
+  <div id="transferModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" id="closeModal">&times;</span>
+      <h3>Información de Transferencia</h3>
+      <p>Para transferencias, usa el siguiente número celular:</p>
+      <p><strong>+52 123 456 7890</strong> - BBVA México</p>
+    </div>
+  </div>
+
+  <!-- Sección de la Iglesia -->
+  <div class="section">
+    <h3>Iglesia</h3>
+    <div class="location">
+      <img src="https://www.example.com/path/to/church-image.jpg" alt="Imagen de la Iglesia">
+      <div class="info">
+        <p>Ubicación de la Iglesia:</p>
+        <a href="https://maps.app.goo.gl/ycnnayaSCrtPk4N79" target="_blank">Ver en Google Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección del Salón -->
+  <div class="section">
+    <h3>Salón</h3>
+    <div class="location">
+      <img src="https://www.example.com/path/to/venue-image.jpg" alt="Imagen del Salón">
+      <div class="info">
+        <p>Ubicación del Salón:</p>
+        <a href="https://maps.app.goo.gl/ycnnayaSCrtPk4N79" target="_blank">Ver en Google Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Evento: 19 de Julio a las 5:00 PM</p>
+    <p>Iglesia: <a href="https://maps.app.goo.gl/ycnnayaSCrtPk4N79" target="_blank">Ubicación de la Iglesia</a></p>
+    <p>Salón: <a href="https://maps.app.goo.gl/ycnnayaSCrtPk4N79" target="_blank">Concord Manzana Ac, La Purísima, 76140 Santiago de Querétaro, Qro.</a></p>
+  </footer>
+
+  <script src="details.js"></script>
 </body>
 </html>
