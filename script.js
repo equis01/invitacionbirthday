@@ -16,32 +16,24 @@ function closeModal() {
 }
 
 // Manejar el envío del formulario
-document.getElementById('rsvpForm').addEventListener('submit', function (event) {
+document.getElementById('rsvpForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    
     const name = document.getElementById('name').value;
     const guests = document.getElementById('guests').value;
-
-    // URL de la Web App de Google Apps Script
-    const url = 'https://script.google.com/macros/s/AKfycbz6o00hvqPlDYTRsWhaU-T4fcC8gDiParr_PvnpDFTiF4wlCCveusHkmhDGoVeI7vDt8w/exec'; 
-
-    // Crear los parámetros que se enviarán
-    const params = {
-        name: name,
-        guests: guests
-    };
-
-    // Enviar los datos usando fetch
-    fetch(url + `?name=${encodeURIComponent(params.name)}&guests=${encodeURIComponent(params.guests)}`, {
-        method: 'GET'
-    })
-    .then(response => response.text())
-    .then(data => {
-        // Mostrar mensaje de éxito
-        alert(`¡Gracias, ${name}! Has confirmado ${guests} invitado(s).`);
-        closeModal();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un error al enviar tus datos. Intenta nuevamente.');
-    });
+    
+    // Crear la URL de la solicitud GET con los parámetros
+    const url = `https://script.google.com/macros/s/AKfycbzpTdaRyBfZnMomVnduX2kNJjhDpbuLTsqi-48CF1A7zI6AZjg7Mlu5YLBeKi4dXR_1Hg/exec?name=${encodeURIComponent(name)}&guests=${encodeURIComponent(guests)}`;
+    
+    // Realizar la solicitud GET
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            alert(`¡Gracias, ${name}! Has confirmado ${guests} invitado(s).`);
+            closeModal(); // Cerrar el modal si el envío fue exitoso
+        })
+        .catch(error => {
+            console.error('Error al enviar los datos:', error);
+            alert('Hubo un error al enviar tus datos. Intenta nuevamente.');
+        });
 });
