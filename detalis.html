@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de QR</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+</head>
+<body>
+  <div id="qrCode"></div>
+
+  <script>
+    // Obtener el parámetro de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id'); // Obtener el valor de 'id'
+
+    // Verifica si existe el parámetro 'id'
+    if (id) {
+      // Generar el código QR con el valor de 'id'
+      const qrText = id; // O puedes usar una URL completa si prefieres
+      QRCode.toCanvas(document.getElementById('qrCode'), qrText, function (error) {
+        if (error) console.error(error);
+        console.log('QR generado!');
+      });
+    } else {
+      document.getElementById('qrCode').innerText = 'No se encontró el parámetro "id"';
+    }
+  </script>
+</body>
+</html>
