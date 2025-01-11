@@ -15,25 +15,33 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-// Manejar el envío del formulario
-document.getElementById('rsvpForm').addEventListener('submit', function(event) {
+// Función para manejar el envío del formulario
+document.querySelector('form[name="form"]').addEventListener('submit', function(event) {
     event.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const guests = document.getElementById('guests').value;
-    
-    // Crear la URL de la solicitud GET con los parámetros
-    const url = `https://script.google.com/macros/s/AKfycbzpTdaRyBfZnMomVnduX2kNJjhDpbuLTsqi-48CF1A7zI6AZjg7Mlu5YLBeKi4dXR_1Hg/exec?name=${encodeURIComponent(name)}&guests=${encodeURIComponent(guests)}`;
-    
-    // Realizar la solicitud GET
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            alert(`¡Gracias, ${name}! Has confirmado ${guests} invitado(s).`);
-            closeModal(); // Cerrar el modal si el envío fue exitoso
-        })
-        .catch(error => {
-            console.error('Error al enviar los datos:', error);
-            alert('Hubo un error al enviar tus datos. Intenta nuevamente.');
-        });
+
+    // Obtener los valores de los campos del formulario
+    const name = document.getElementById('name-3b9a').value;
+    const guests = document.getElementById('guests-3b9a').value;  // Suponiendo que el campo es para invitados
+
+    // Crear los datos para enviar en el cuerpo de la solicitud POST
+    const data = new FormData();
+    data.append('name', name);
+    data.append('guests', guests);
+
+    // Realizar la solicitud POST
+    fetch('https://script.google.com/macros/s/AKfycbwl6YLKV6zAeyB1KLW0pnW74VB-YS1EgEhWNXPNK20sechrdv_iJdVQhRUmHNpk-A2MsQ/exec', {
+        method: 'POST',
+        body: data
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Mostrar un mensaje de éxito
+        alert('¡Gracias, ' + name + '! Has confirmado ' + guests + ' invitado(s).');
+        // Limpiar los campos del formulario
+        document.querySelector('form[name="form"]').reset();
+    })
+    .catch(error => {
+        console.error('Error al enviar los datos:', error);
+        alert('Hubo un error al enviar tus datos. Intenta nuevamente.');
+    });
 });
