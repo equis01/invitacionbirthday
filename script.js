@@ -22,7 +22,7 @@ document.getElementById('rsvpForm').addEventListener('submit', function (event) 
     const guests = document.getElementById('guests').value;
 
     // URL de la Web App de Google Apps Script
-    const url = 'https://script.google.com/macros/s/AKfycbxpKMKQ3anOT6I5j39i0OaS5jfOLDQaUKJC9ndYx-DhKQbYIEB7emdDCPTrILIMtcJLDw/exec'; 
+    const url = 'https://script.google.com/macros/s/AKfycbz6o00hvqPlDYTRsWhaU-T4fcC8gDiParr_PvnpDFTiF4wlCCveusHkmhDGoVeI7vDt8w/exec'; 
 
     // Crear los parámetros que se enviarán
     const params = {
