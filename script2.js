@@ -16,7 +16,7 @@ function closeModal() {
 }
 
 // Interceptar el envío del formulario
-document.getElementById('confirmationForm').addEventListener('submit', function(event) {
+document.getElementById('confirmationForm').addEventListener('submit', function (event) {
     // Obtener los valores de los campos del formulario
     const name = document.getElementById('name').value.trim();
     const guests = document.getElementById('guests').value.trim();
@@ -28,10 +28,13 @@ document.getElementById('confirmationForm').addEventListener('submit', function(
         return;
     }
 
-    // Generar el enlace personalizado
+    // Generar el enlace personalizado con encodeURIComponent
     const encodedId = encodeURIComponent(`${name}_${guests}`);
     const customUrl = `https://ximenav.digital/details?id=${encodedId}`;
 
-    // Actualizar el campo oculto '_next' con el enlace personalizado
+    // Actualizar el valor del campo oculto '_next'
     document.getElementById('_next').value = customUrl;
+
+    // Confirmación visual (puedes eliminar este bloque si no es necesario)
+    console.log(`Redirigiendo a: ${customUrl}`);
 });
