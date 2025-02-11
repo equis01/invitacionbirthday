@@ -15,33 +15,26 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-// Función para manejar el envío del formulario
-document.querySelector('form[name="form"]').addEventListener('submit', function(event) {
-    event.preventDefault();
-
+// Interceptar el envío del formulario
+document.getElementById('confirmationForm').addEventListener('submit', function (event) {
     // Obtener los valores de los campos del formulario
-    const name = document.getElementById('name-3b9a').value;
-    const guests = document.getElementById('guests-3b9a').value;  // Suponiendo que el campo es para invitados
+    const name = document.getElementById('name').value.trim();
+    const guests = document.getElementById('guests').value.trim();
 
-    // Crear los datos para enviar en el cuerpo de la solicitud POST
-    const data = new FormData();
-    data.append('name', name);
-    data.append('guests', guests);
+    // Validar los campos
+    if (!name || !guests) {
+        alert('Por favor, llena todos los campos antes de continuar.');
+        event.preventDefault();
+        return;
+    }
 
-    // Realizar la solicitud POST
-    fetch('https://script.google.com/macros/s/AKfycbw8UdDzOKe8ERLPrZj7LPZCN6315IjA-RwEvGH3UuattSXH12IFAMoHvpGrgwzNElMAEQ/exec', {
-        method: 'POST',
-        body: data
-    })
-    .then(response => response.text())
-    .then(data => {
-        // Mostrar un mensaje de éxito
-        alert('¡Gracias, ' + name + '! Has confirmado ' + guests + ' invitado(s).');
-        // Limpiar los campos del formulario
-        document.querySelector('form[name="form"]').reset();
-    })
-    .catch(error => {
-        console.error('Error al enviar los datos:', error);
-        alert('Hubo un error al enviar tus datos. Intenta nuevamente.');
-    });
+    // Generar el enlace personalizado con encodeURIComponent
+    const encodedId = encodeURIComponent(`${name}_${guests}`);
+    const customUrl = `https://ximenav.digital/details?id=${encodedId}`;
+
+    // Actualizar el valor del campo oculto '_next'
+    document.getElementById('_next').value = customUrl;
+
+    // Confirmación visual (puedes eliminar este bloque si no es necesario)
+    console.log(`Redirigiendo a: ${customUrl}`);
 });
