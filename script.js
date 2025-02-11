@@ -29,7 +29,7 @@ document.querySelector('form[name="form"]').addEventListener('submit', function(
     data.append('guests', guests);
 
     // Realizar la solicitud POST
-    fetch('https://script.google.com/macros/s/AKfycbwGAerX29o1jFLWp68oD1dfL0MeEmi2MuL0X5ncYW9omCkDOys6XDHhtQlxIiOcABREaA/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbxKLCLGGQaOR9lOc5igM28MXfvWvBNW7FMeIk74ps0GovEcQbM0Npstz_P17VVPY71v2A/exec', {
         method: 'POST',
         body: data
     })
