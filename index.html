@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ximena Vázquez - XV Años</title>
+    <meta property="og:title" content="¡Estás invitado a los XV Años de Ximena Vázquez!">
+    <meta property="og:description" content="¡Te esperamos para celebrar un día muy especial!">
+    <meta property="og:image" content="https://cinemafaith.com/wp-content/uploads/2017/04/beauty-3-final-2-1050x438.jpg">
+    <link rel="shortcut icon" href="https://static.wixstatic.com/media/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png/v1/fill/w_480,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png" type="image/webp">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body onclick="PlayAudio()">
+    <audio id="audioInstrumental" autoplay loop>
+        <source src="https://www.dropbox.com/scl/fi/rj8ns7qtd68k9ssxh0h5u/Beauty-and-the-Beast-instrumental.mp3?rlkey=ft6bsjr3w53kw0aufy5qwktkk&st=771keoeu&raw=1" type="audio/mp3">
+        Tu navegador no sopporta el audio.
+    </audio>
+
+    <div class="invitation-container">
+        <header>
+            <h1>¡Estás Invitado!</h1>
+            <h2>A los XV años de <strong>Ximena Vázquez</strong></h2>
+        </header>
+        <div class="details">
+            <p id="eventDateTimeClickable" style="cursor: pointer;">Fecha: <strong>Sábado, 19 de Julio de 2025</strong><br>Hora: <strong>5:00 PM</strong></p>
+            <p id="eventLocationClickable" style="cursor: pointer;">Ubicación: <strong>Salón Ébano, Querétaro</strong></p>
+        </div>
+        <button onclick="openModal()">Confirmar Asistencia</button>
+        <footer>
+            <p>Con cariño, familia Vázquez Martínez.</p>
+        </footer>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Asistencia</h3>
+            <form action="#" method="post" id="confirmationForm"> <input type="text" id="name" name="name" placeholder="Tu nombre completo" required minlength="6">
+                <input type="number" id="guests" name="guests" placeholder="Número de invitados" min="1" required>
+                <input type="hidden" id="ipAddress" name="ipAddress">
+                <button type="submit">Enviar</button>
+            </form>
+            <button class="close-btn" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="welcomeBackModal" class="modal" tabindex="-1" aria-labelledby="welcomeBackModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png" alt="Bella Dudando" class="img-fluid mb-3" style="max-width: 150px;">
+                    <h5 class="modal-title mb-3" id="welcomeBackModalLabel" style="font-family: 'Playfair Display', serif; color: #4A148C;">¡Hola de nuevo, <span id="modalGuestName"></span>!</h5>
+                    <p>Parece que ya confirmaste tu asistencia. ¿Quieres ir directamente a tu invitación?</p>
+                    <button type="button" class="btn btn-primary" id="goToInvitationBtn">Sí, ir a mi invitación</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, quedarme aquí</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorAlertModal" class="modal" tabindex="-1" aria-labelledby="errorAlertModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png" alt="Bella Dudando" class="img-fluid mb-3" style="max-width: 150px;">
+                    <h5 class="modal-title mb-3" id="errorAlertModalLabel" style="font-family: 'Playfair Display', serif; color: #4A148C;">Atención:</h5>
+                    <p id="errorModalMessage"></p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="scripts/index.js"></script>
+</body>
+</html>
