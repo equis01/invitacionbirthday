@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Enviando...';
 
             // <<-- ¡IMPORTANTE! URL de tu App Script para sendInvitationEmail -->>
-            const gasEmailServiceUrl = 'https://script.google.com/macros/s/AKfycbwp9LrVrAimP32_buI3VwYpAGwBvI9cbS7_iEiP6dMB25IKClU6XPpCgGQZAkCsRYAxmw/exec';
+            const gasEmailServiceUrl = 'https://script.google.com/macros/s/AKfycbxsRrerqGZAvAjlK3I5S6GjwDDmiUdfq_hMU9bSjZq0YOZmeAJpXgKkXqoJ45gpqVHM/exec';
             
             try {
                 const response = await fetch(gasEmailServiceUrl, {
