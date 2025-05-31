@@ -1,17 +1,14 @@
 // scripts/details.js
-// Reproductor de audio (mantener aquí también si quieres que funcione de forma independiente)
 function PlayAudio() {
     document.getElementById("audioInstrumental").play();
 }
 
-// Función para abrir el modal del formulario de correo
 function openEmailFormModal() {
     const modal = document.getElementById('emailFormModal');
     modal.style.display = 'flex';
 }
 
-// Función para cerrar el modal del formulario de correo
-function closeModal() { // Esta es para el modal de confirmación, si aún lo usas en details.html
+function closeModal() {
     const modal = document.getElementById('modal');
     if (modal) modal.style.display = 'none';
 }
@@ -21,28 +18,26 @@ function closeEmailFormModal() {
     modal.style.display = 'none';
 }
 
-// NUEVA FUNCIÓN: Mostrar alerta de error/éxito personalizada con modal de Bella
 function showDetailsAlertModal(message) {
     const errorModal = new bootstrap.Modal(document.getElementById('detailsAlertModal'));
     document.getElementById('detailsModalMessage').textContent = message;
     errorModal.show();
 }
 
-// Script principal para lógica de details.html
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-    const currentInvitationUrl = window.location.href; // La URL completa de esta página de detalles
+    const currentInvitationUrl = window.location.href;
 
     if (id) {
         const parts = id.split('_');
         const guestName = decodeURIComponent(parts[0]);
         const guestCount = parts[1];
 
-        document.getElementById('guestName').innerText = `Gracias, ${guestName}`; // Mensaje de agradecimiento
+        document.getElementById('guestName').innerText = `Gracias, ${guestName}`;
         document.getElementById('guestCount').innerText = `${guestCount} personas`;
 
-        const qrText = id; // El ID completo (nombre_invitados) es lo que se codifica
+        const qrText = id;
         QRCode.toDataURL(qrText, {
             errorCorrectionLevel: 'H',
             color: { dark: '#000000', light: '#00000000' }
@@ -53,34 +48,31 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 const imgElement = document.createElement('img');
                 imgElement.src = url;
-                imgElement.style.maxWidth = '150px'; // Ajusta el tamaño del QR
+                imgElement.style.maxWidth = '150px';
                 imgElement.style.height = 'auto';
                 document.getElementById('qrCode').appendChild(imgElement);
             }
         });
     } else {
-        document.getElementById('guestName').innerText = 'Bienvenido/a'; // Mensaje genérico
+        document.getElementById('guestName').innerText = 'Bienvenido/a';
         document.getElementById('guestCount').innerText = 'Por favor, confirma tu asistencia.';
-        document.getElementById('qrCode').innerText = ''; // No QR sin ID
+        document.getElementById('qrCode').innerText = '';
     }
 
-    // Botón WhatsApp
     const whatsappShareBtn = document.getElementById('whatsappShareBtn');
     if (whatsappShareBtn) {
         const whatsappText = encodeURIComponent(`¡Hola! Estás invitado/a a los XV Años de Ximena Vázquez. Aquí puedes ver tu invitación personal: ${currentInvitationUrl}`);
         whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${whatsappText}`;
     }
 
-    // Botón Enviar por Correo: Abre el modal del formulario
     const emailShareBtn = document.getElementById('emailShareBtn');
     if (emailShareBtn) {
         emailShareBtn.addEventListener('click', function(event) {
             event.preventDefault();
-            openEmailFormModal(); // Abre el modal con el formulario de correo
+            openEmailFormModal();
         });
     }
 
-    // Manejo del formulario de envío de correo en el modal
     const sendEmailForm = document.getElementById('sendEmailForm');
     if (sendEmailForm) {
         sendEmailForm.addEventListener('submit', async function(event) {
@@ -88,25 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const recipientEmail = document.getElementById('recipientEmail').value.trim();
             if (!recipientEmail) {
-                showDetailsAlertModal('Por favor, ingresa un correo electrónico.'); // Usar modal para validación
+                showDetailsAlertModal('Por favor, ingresa un correo electrónico.');
                 return;
             }
 
             const submitButton = sendEmailForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.textContent; // Guarda el texto original
-            
-            // 1. Deshabilitar el botón y cambiar texto
+            const originalButtonText = submitButton.textContent;
+
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
 
-            // URL de tu App Script para sendInvitationEmail
             const gasEmailServiceUrl = 'https://script.google.com/macros/s/AKfycbxgfG-3FhraML37zo7ySHZNNDsDv4_RoQV2RT6Z3_wrviFlklQ3-rz_wCzNkGDpb19x/exec';
-            
+
             try {
-                // fetch con modo no-cors para evitar bloqueo CORS
                 await fetch(gasEmailServiceUrl, {
                     method: 'POST',
-                    mode: 'no-cors', // Cambio clave para evitar error CORS
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
@@ -116,29 +105,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     }).toString()
                 });
 
-                // No se puede leer respuesta en modo no-cors, asumimos éxito
                 showDetailsAlertModal('Invitación enviada por correo exitosamente.');
                 document.getElementById('recipientEmail').value = '';
 
             } catch (error) {
-                console.error('Error de red o CORS al enviar correo:', error);
+                console.error('Error de red al enviar correo:', error);
                 showDetailsAlertModal('No se pudo enviar el correo. Revisa tu conexión.');
             } finally {
-                // 2. Habilitar el botón y restaurar texto
                 submitButton.disabled = false;
                 submitButton.textContent = originalButtonText;
             }
         });
     }
 
-    // Botón Descargar Invitación (captura las secciones y genera imagen)
     const downloadInvitationBtn = document.getElementById('downloadInvitationBtn');
     if (downloadInvitationBtn) {
         downloadInvitationBtn.addEventListener('click', function(event) {
             event.preventDefault();
             alert('Generando la invitación para descargar... ¡Esto puede tardar unos segundos!');
 
-            // Identificar secciones
             const mainHeaderSection = document.querySelector('.container.contenedor > .row > .contenedor-central > .col-12.caja-bordes.text-center');
 
             let ceremonyReceptionSection = null;
@@ -149,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 }
             }
-            
+
             let qrCodeSection = null;
             for (const row of allDirectionRows) {
                 if (row.querySelector('#qrCode')) {
@@ -158,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // Crear contenedor temporal para captura
             const tempCaptureDiv = document.createElement('div');
             tempCaptureDiv.style.position = 'absolute';
             tempCaptureDiv.style.left = '-9999px';
@@ -173,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
             tempCaptureDiv.style.fontFamily = "'Lora', serif";
             tempCaptureDiv.style.color = '#333';
 
-            // Agregar estilos para fuentes
             const styleElement = document.createElement('style');
             styleElement.textContent = `
                 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
@@ -249,7 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
             tempCaptureDiv.appendChild(styleElement);
             document.body.appendChild(tempCaptureDiv);
 
-            // Clonar y agregar secciones
             if (mainHeaderSection) {
                 const clonedHeader = mainHeaderSection.cloneNode(true);
                 clonedHeader.style.borderBottom = '';
@@ -287,13 +269,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 tempCaptureDiv.appendChild(qrCodeSection.cloneNode(true));
             }
 
-            // Guardar estilos originales para restaurar luego
             const originalBodyBg = document.body.style.backgroundImage;
             const originalBodyBgColor = document.body.style.backgroundColor;
             document.body.style.backgroundImage = 'none';
             document.body.style.backgroundColor = '#f8f8f8';
 
-            // Capturar con html2canvas
             html2canvas(tempCaptureDiv, {
                 scale: 2,
                 useCORS: true,
