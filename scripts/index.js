@@ -5,29 +5,30 @@ function PlayAudio() {
     document.getElementById("audioInstrumental").play();
 }
 
-// Función para abrir el modal de confirmación
-function openModal() {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'flex';
-    getPublicIP();
+// Genera un token alfanumérico aleatorio de 16 caracteres
+function generateToken() {
+    return Math.random().toString(36).substr(2, 16);
 }
 
-// Función para cerrar el modal de confirmación
-function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'none';
-}
-
-// Función para obtener la IP pública
+// Función para obtener la IP pública o generar token si no se puede obtener
 async function getPublicIP() {
     try {
         const response = await fetch('https://api.ipify.org?format=json');
         const data = await response.json();
-        document.getElementById('ipAddress').value = data.ip;
-        console.log('IP Pública detectada:', data.ip);
+
+        if (data.ip && data.ip.trim() !== '') {
+            document.getElementById('ipAddress').value = data.ip;
+            console.log('IP Pública detectada:', data.ip);
+        } else {
+            const token = generateToken();
+            document.getElementById('ipAddress').value = token;
+            console.log('No se detectó IP válida. Token generado:', token);
+        }
     } catch (error) {
         console.error('No se pudo obtener la IP pública:', error);
-        document.getElementById('ipAddress').value = 'Desconocida';
+        const token = generateToken();
+        document.getElementById('ipAddress').value = token;
+        console.log('Error al obtener IP, token generado:', token);
     }
 }
 
@@ -53,8 +54,8 @@ document.getElementById('confirmationForm').addEventListener('submit', async fun
     submitButton.disabled = true;
     submitButton.textContent = 'Enviando...';
 
-    if (!name || isNaN(guests) || !ipAddress || ipAddress === 'Desconocida') {
-        showErrorModal('Por favor, llena todos los campos correctamente y asegúrate de que tu IP se haya detectado.');
+    if (!name || isNaN(guests) || !ipAddress) {
+        showErrorModal('Por favor, llena todos los campos correctamente y asegúrate de que tu IP o token se haya detectado.');
         submitButton.disabled = false; // Habilitar el botón si hay un error de validación local
         submitButton.textContent = originalButtonText;
         return;
@@ -88,8 +89,6 @@ document.getElementById('confirmationForm').addEventListener('submit', async fun
 
             // alert(data.message || `Gracias, ${name}. ¡Tu asistencia ha sido confirmada!`); // Eliminar alert nativo
             showErrorModal(data.message || `Gracias, ${name}. ¡Tu asistencia ha sido confirmada!`); // Usar modal para éxito también
-            // Redirigir después de que el usuario cierre el modal de éxito, si lo prefieres
-            // O directamente como estaba antes si el mensaje es solo informativo antes de la redirección
             window.location.href = data.redirect;
         } else if (data.status === 'error') {
             showErrorModal(data.message); // Usar modal para errores de Apps Script
@@ -134,7 +133,7 @@ function showAngryBelleAlert() {
 
 // Lógica de "Hola de nuevo" con modal de Bootstrap (ya es un modal)
 document.addEventListener('DOMContentLoaded', async () => {
-    await getPublicIP(); 
+    await getPublicIP();
 
     const savedIP = localStorage.getItem('ximena_xv_ip');
     const currentIP = document.getElementById('ipAddress').value;
@@ -181,7 +180,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (isMobile) {
                 const wazeUrl = `waze://?q=${encodedLocation}`;
-                const googleMapsMobileUrl = `https://maps.google.com/?q=${encodedLocation}`; // URL directa para Maps en móvil
+                const googleMapsMobileUrl = `https://maps.google.com/?q=${encodedLocation}`;
 
                 // Intentar abrir Waze. Si falla, abrir Google Maps.
                 window.location.href = wazeUrl; 
@@ -192,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }, 500); 
             } else {
                 // Para escritorio, abrir Google Maps directamente
-                const googleMapsDesktopUrl = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`; // URL de búsqueda con API
+                const googleMapsDesktopUrl = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
                 window.open(googleMapsDesktopUrl, '_blank');
             }
         });
