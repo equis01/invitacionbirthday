@@ -41,31 +41,32 @@
         </footer>
     </div>
 
-    <!-- Modal Confirmar Asistencia -->
-    <div id="modal" class="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Confirmar Asistencia</h5>
-                    <button type="button" class="btn-close" aria-label="Cerrar" onclick="closeModal()"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" method="post" id="confirmationForm" novalidate>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Tu nombre completo</label>
-                            <input type="text" id="name" name="name" class="form-control" required minlength="6" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="guests" class="form-label">Número de invitados</label>
-                            <input type="number" id="guests" name="guests" class="form-control" min="1" max="7" required />
-                        </div>
-                        <input type="hidden" id="ipAddress" name="ipAddress" />
-                        <button type="submit" class="btn btn-success">Enviar</button>
-                    </form>
-                </div>
+<!-- Modal Confirmar Asistencia -->
+<div id="modal" class="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Confirmar Asistencia</h5>
+                <!-- botón "X" removido para evitar confusión -->
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="confirmationForm" novalidate>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tu nombre completo</label>
+                        <input type="text" id="name" name="name" class="form-control" required minlength="6" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="guests" class="form-label">Número de invitados</label>
+                        <input type="number" id="guests" name="guests" class="form-control" min="1" max="7" required />
+                    </div>
+                    <input type="hidden" id="ipAddress" name="ipAddress" />
+                    <button type="submit" class="btn btn-success">Enviar</button>
+                    <button type="button" class="btn btn-secondary mt-2" onclick="closeModal()">Cerrar</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Modal Hola de nuevo -->
     <div id="welcomeBackModal" class="modal fade" tabindex="-1" aria-labelledby="welcomeBackModalLabel" aria-hidden="true" data-bs-backdrop="false">
