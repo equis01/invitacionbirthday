@@ -6,7 +6,7 @@ function PlayAudio() {
   if (audio) audio.play().catch(() => {}); // evitar error si autoplay bloqueado
 }
 
-// Función para generar un token aleatorio simple
+// Generar token alfanumérico para usuario
 function generateUserToken(length = 20) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let token = "";
@@ -16,7 +16,7 @@ function generateUserToken(length = 20) {
   return token;
 }
 
-// Función para obtener IP pública o token fallback
+// Obtener IP pública o token fallback
 async function getPublicIP() {
   const ipField = document.getElementById("ipAddress");
   const storedTokenKey = "ximena_xv_token";
@@ -30,20 +30,17 @@ async function getPublicIP() {
   }
 
   try {
-    // Primer intento: api.ipify.org
     const ip = await fetchIP("https://api.ipify.org?format=json");
     ipField.value = ip;
     console.log("IP Pública detectada (api.ipify.org):", ip);
   } catch (err1) {
     console.warn("Fallo api.ipify.org:", err1);
     try {
-      // Segundo intento: api64.ipify.org
       const ip = await fetchIP("https://api64.ipify.org?format=json");
       ipField.value = ip;
       console.log("IP Pública detectada (api64.ipify.org):", ip);
     } catch (err2) {
       console.warn("Fallo api64.ipify.org:", err2);
-      // Fallback: token único
       let token = localStorage.getItem(storedTokenKey);
       if (!token) {
         token = generateUserToken();
@@ -55,7 +52,7 @@ async function getPublicIP() {
   }
 }
 
-// Función para abrir el modal de confirmación con Bootstrap 5
+// Mostrar modal de confirmación
 function openModal() {
   getPublicIP();
   const modalElement = document.getElementById("modal");
@@ -65,7 +62,7 @@ function openModal() {
   }
 }
 
-// Función para cerrar el modal de confirmación
+// Cerrar modal confirmación
 function closeModal() {
   const modalElement = document.getElementById("modal");
   if (modalElement) {
@@ -74,7 +71,7 @@ function closeModal() {
   }
 }
 
-// Función para mostrar modal de error o éxito
+// Mostrar modal de error o éxito
 function showErrorModal(message) {
   const errorModalElement = document.getElementById("errorAlertModal");
   if (!errorModalElement) return;
@@ -120,7 +117,6 @@ document.getElementById("confirmationForm").addEventListener("submit", async fun
   const submitButton = event.submitter;
   const originalButtonText = submitButton.textContent;
 
-  // Bloquear el botón y cambiar texto
   submitButton.disabled = true;
   submitButton.textContent = "Enviando...";
 
@@ -140,9 +136,9 @@ document.getElementById("confirmationForm").addEventListener("submit", async fun
 
   const googleAppsScriptURL =
     "https://script.google.com/macros/s/AKfycbxR9l-gnsEKMK8Hu-FR41IlXZIoOgo72VjpE1o5bxTzbSpcfIxqNm-Bra99eGOUWQKr/exec";
+
   const form = event.target;
   const formData = new FormData(form);
-
   formData.append("ipAddress", ipAddress);
 
   try {
@@ -150,6 +146,7 @@ document.getElementById("confirmationForm").addEventListener("submit", async fun
       method: "POST",
       body: formData,
     });
+
     const data = await response.json();
 
     if (data.status === "success" && data.redirect) {
@@ -174,7 +171,7 @@ document.getElementById("confirmationForm").addEventListener("submit", async fun
   }
 });
 
-// Lógica "Hola de nuevo" con modal de Bootstrap
+// Modal "Hola de nuevo"
 document.addEventListener("DOMContentLoaded", async () => {
   await getPublicIP();
 
@@ -197,7 +194,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Redireccionar calendario
+  // Redireccionar a calendario
   const eventDateTimeClickable = document.getElementById("eventDateTimeClickable");
   if (eventDateTimeClickable) {
     eventDateTimeClickable.addEventListener("click", () => {
@@ -217,7 +214,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Redireccionar ubicación
+  // Redireccionar a mapas
   const eventLocationClickable = document.getElementById("eventLocationClickable");
   if (eventLocationClickable) {
     eventLocationClickable.addEventListener("click", () => {
