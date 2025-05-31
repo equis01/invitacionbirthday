@@ -6,6 +6,55 @@ function PlayAudio() {
   if (audio) audio.play().catch(() => {}); // evitar error si autoplay bloqueado
 }
 
+// Función para generar un token aleatorio simple
+function generateUserToken(length = 20) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let token = "";
+  for (let i = 0; i < length; i++) {
+    token += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return token;
+}
+
+// Función para obtener IP pública o token fallback
+async function getPublicIP() {
+  const ipField = document.getElementById("ipAddress");
+  const storedTokenKey = "ximena_xv_token";
+
+  async function fetchIP(url) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    if (!data.ip) throw new Error("No IP in response");
+    return data.ip;
+  }
+
+  try {
+    // Primer intento: api.ipify.org
+    const ip = await fetchIP("https://api.ipify.org?format=json");
+    ipField.value = ip;
+    console.log("IP Pública detectada (api.ipify.org):", ip);
+  } catch (err1) {
+    console.warn("Fallo api.ipify.org:", err1);
+    try {
+      // Segundo intento: api64.ipify.org
+      const ip = await fetchIP("https://api64.ipify.org?format=json");
+      ipField.value = ip;
+      console.log("IP Pública detectada (api64.ipify.org):", ip);
+    } catch (err2) {
+      console.warn("Fallo api64.ipify.org:", err2);
+      // Fallback: token único
+      let token = localStorage.getItem(storedTokenKey);
+      if (!token) {
+        token = generateUserToken();
+        localStorage.setItem(storedTokenKey, token);
+      }
+      ipField.value = token;
+      console.log("Token asignado en lugar de IP:", token);
+    }
+  }
+}
+
 // Función para abrir el modal de confirmación con Bootstrap 5
 function openModal() {
   getPublicIP();
@@ -22,20 +71,6 @@ function closeModal() {
   if (modalElement) {
     const modal = bootstrap.Modal.getInstance(modalElement);
     if (modal) modal.hide();
-  }
-}
-
-// Función para obtener la IP pública
-async function getPublicIP() {
-  try {
-    const response = await fetch("https://api.ipify.org?format=json");
-    if (!response.ok) throw new Error("Respuesta no OK");
-    const data = await response.json();
-    document.getElementById("ipAddress").value = data.ip;
-    console.log("IP Pública detectada:", data.ip);
-  } catch (error) {
-    console.error("No se pudo obtener la IP pública:", error);
-    document.getElementById("ipAddress").value = "Desconocida";
   }
 }
 
