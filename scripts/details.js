@@ -1,17 +1,15 @@
 // scripts/details.js
-// Reproductor de audio (mantener aquí también si quieres que funcione de forma independiente)
+
 function PlayAudio() {
     document.getElementById("audioInstrumental").play();
 }
 
-// Función para abrir el modal del formulario de correo
 function openEmailFormModal() {
     const modal = document.getElementById('emailFormModal');
     modal.style.display = 'flex';
 }
 
-// Función para cerrar el modal del formulario de correo
-function closeModal() { // Esta es para el modal de confirmación, si aún lo usas en details.html
+function closeModal() {
     const modal = document.getElementById('modal');
     if (modal) modal.style.display = 'none';
 }
@@ -21,30 +19,26 @@ function closeEmailFormModal() {
     modal.style.display = 'none';
 }
 
-// NUEVA FUNCIÓN: Mostrar alerta de error/éxito personalizada con modal de Bella
 function showDetailsAlertModal(message) {
     const errorModal = new bootstrap.Modal(document.getElementById('detailsAlertModal'));
     document.getElementById('detailsModalMessage').textContent = message;
     errorModal.show();
 }
 
-
-// Script principal para lógica de details.html
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-    const currentInvitationUrl = window.location.href; // La URL completa de esta página de detalles
+    const currentInvitationUrl = window.location.href;
 
     if (id) {
         const parts = id.split('_');
         const guestName = decodeURIComponent(parts[0]);
         const guestCount = parts[1];
 
-        document.getElementById('guestName').innerText = `Gracias, ${guestName}`; // Mensaje de agradecimiento
+        document.getElementById('guestName').innerText = `Gracias, ${guestName}`;
         document.getElementById('guestCount').innerText = `${guestCount} personas`;
 
-        const qrText = id; // El ID completo (nombre_invitados) es lo que se codifica
-        QRCode.toDataURL(qrText, {
+        QRCode.toDataURL(id, {
             errorCorrectionLevel: 'H',
             color: { dark: '#000000', light: '#00000000' }
         }, function (error, url) {
@@ -54,34 +48,31 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 const imgElement = document.createElement('img');
                 imgElement.src = url;
-                imgElement.style.maxWidth = '150px'; // Ajusta el tamaño del QR
+                imgElement.style.maxWidth = '150px';
                 imgElement.style.height = 'auto';
                 document.getElementById('qrCode').appendChild(imgElement);
             }
         });
     } else {
-        document.getElementById('guestName').innerText = 'Bienvenido/a'; // Mensaje genérico
+        document.getElementById('guestName').innerText = 'Bienvenido/a';
         document.getElementById('guestCount').innerText = 'Por favor, confirma tu asistencia.';
-        document.getElementById('qrCode').innerText = ''; // No QR sin ID
+        document.getElementById('qrCode').innerText = '';
     }
 
-    // Botón WhatsApp
     const whatsappShareBtn = document.getElementById('whatsappShareBtn');
     if (whatsappShareBtn) {
         const whatsappText = encodeURIComponent(`¡Hola! Estás invitado/a a los XV Años de Ximena Vázquez. Aquí puedes ver tu invitación personal: ${currentInvitationUrl}`);
         whatsappShareBtn.href = `https://api.whatsapp.com/send?text=${whatsappText}`;
     }
 
-    // Botón Enviar por Correo: Abre el modal del formulario
     const emailShareBtn = document.getElementById('emailShareBtn');
     if (emailShareBtn) {
         emailShareBtn.addEventListener('click', function(event) {
             event.preventDefault();
-            openEmailFormModal(); // Abre el modal con el formulario de correo
+            openEmailFormModal();
         });
     }
 
-    // Manejo del formulario de envío de correo en el modal
     const sendEmailForm = document.getElementById('sendEmailForm');
     if (sendEmailForm) {
         sendEmailForm.addEventListener('submit', async function(event) {
@@ -89,20 +80,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const recipientEmail = document.getElementById('recipientEmail').value.trim();
             if (!recipientEmail) {
-                showDetailsAlertModal('Por favor, ingresa un correo electrónico.'); // Usar modal para validación
+                showDetailsAlertModal('Por favor, ingresa un correo electrónico.');
                 return;
             }
 
             const submitButton = sendEmailForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.textContent; // Guarda el texto original
-            
-            // 1. Deshabilitar el botón y cambiar texto
+            const originalButtonText = submitButton.textContent;
+
             submitButton.disabled = true;
             submitButton.textContent = 'Enviando...';
 
-            // <<-- ¡IMPORTANTE! URL de tu App Script para sendInvitationEmail -->>
-            const gasEmailServiceUrl = 'https://script.google.com/macros/s/AKfycbwp9LrVrAimP32_buI3VwYpAGwBvI9cbS7_iEiP6dMB25IKClU6XPpCgGQZAkCsRYAxmw/exec';
-            
+            // URL actualizada de tu App Script Web App
+            const gasEmailServiceUrl = 'https://script.google.com/macros/s/AKfycbxsRrerqGZAvAjlK3I5S6GjwDDmiUdfq_hMU9bSjZq0YOZmeAJpXgKkXqoJ45gpqVHM/exec';
+
             try {
                 const response = await fetch(gasEmailServiceUrl, {
                     method: 'POST',
@@ -115,32 +105,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     }).toString()
                 });
                 const data = await response.json();
+
                 if (data.status === 'success') {
-                    showDetailsAlertModal('Invitación enviada por correo exitosamente.'); // Usar modal para éxito
-                    document.getElementById('recipientEmail').value = ''; // Limpiar campo
+                    showDetailsAlertModal('Invitación registrada exitosamente.');
+                    document.getElementById('recipientEmail').value = '';
                 } else {
-                    showDetailsAlertModal('Error al enviar la invitación por correo: ' + data.message); // Usar modal para error
-                    console.error('Error de GAS al enviar correo:', data.message);
+                    showDetailsAlertModal('Error al registrar invitación: ' + data.message);
+                    console.error('Error GAS:', data.message);
                 }
             } catch (error) {
-                console.error('Error de red o CORS al enviar correo:', error);
-                showDetailsAlertModal('No se pudo enviar el correo. Revisa tu conexión.'); // Usar modal para error de red
+                console.error('Error de red o CORS:', error);
+                showDetailsAlertModal('No se pudo enviar la solicitud. Revisa tu conexión.');
             } finally {
-                // 2. Habilitar el botón y restaurar texto
                 submitButton.disabled = false;
                 submitButton.textContent = originalButtonText;
             }
         });
     }
 
-    // Botón Descargar Invitación (captura encabezado, Ceremonia, Recepción y QR)
     const downloadInvitationBtn = document.getElementById('downloadInvitationBtn');
     if (downloadInvitationBtn) {
         downloadInvitationBtn.addEventListener('click', function(event) {
             event.preventDefault();
             alert('Generando la invitación para descargar... ¡Esto puede tardar unos segundos!');
 
-            // 1. Identify the specific sections to capture
             const mainHeaderSection = document.querySelector('.container.contenedor > .row > .contenedor-central > .col-12.caja-bordes.text-center');
 
             let ceremonyReceptionSection = null;
@@ -151,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 }
             }
-            
+
             let qrCodeSection = null;
             for (const row of allDirectionRows) {
                 if (row.querySelector('#qrCode')) {
@@ -160,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-            // 2. Create a temporary container to hold the cloned content
             const tempCaptureDiv = document.createElement('div');
             tempCaptureDiv.style.position = 'absolute';
             tempCaptureDiv.style.left = '-9999px';
@@ -322,5 +309,4 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-    }
 });
