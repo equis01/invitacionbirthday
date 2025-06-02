@@ -1,132 +1,128 @@
 // index.js
 
+// Inicializar los modales de Bootstrap
 const modalConfirmEl = document.getElementById('modalConfirm');
 const modalWelcomeEl = document.getElementById('modalWelcome');
-const bellaAlertEl = document.getElementById('bellaAlert');
+const bellaAlertEl = document.getElementById('bellaAlert'); // La alerta personalizada para más de 7 invitados
 
 const modalConfirm = new bootstrap.Modal(modalConfirmEl);
 const modalWelcome = new bootstrap.Modal(modalWelcomeEl);
 
+// --- Manejadores de eventos para los modales y alerta ---
+
+// Abrir el modal de confirmación al hacer clic en el botón principal
 document.getElementById('btnOpenConfirm').addEventListener('click', () => {
-  modalConfirm.show();
+    modalConfirm.show();
 });
 
+// Mostrar la alerta de "Bella Dudando"
 function showBellaAlert() {
-  bellaAlertEl.classList.add('show');
+    bellaAlertEl.classList.add('show');
 }
 
+// Ocultar la alerta de "Bella Dudando"
 function hideBellaAlert() {
-  bellaAlertEl.classList.remove('show');
+    bellaAlertEl.classList.remove('show');
 }
 
+// Cerrar la alerta de "Bella Dudando" al hacer clic en su botón
 document.getElementById('bellaAlertCloseBtn').addEventListener('click', () => {
-  hideBellaAlert();
+    hideBellaAlert();
 });
 
+// Función para mostrar el modal de bienvenida
 function showWelcomeModal(name, guests) {
-  document.getElementById('welcomeName').textContent = `¡Hola de nuevo, ${name}!`;
-  const modalParagraph = document.getElementById('welcomeMessage');
-  modalParagraph.textContent = 'Parece que ya confirmaste tu asistencia. ¿Quieres ir directamente a tu invitación?';
+    document.getElementById('welcomeName').textContent = `¡Hola de nuevo, ${name}!`;
+    const welcomeMessageParagraph = document.getElementById('welcomeMessage');
+    welcomeMessageParagraph.textContent = 'Parece que ya confirmaste tu asistencia. ¿Quieres ir directamente a tu invitación?';
 
-  const btnGo = document.getElementById('btnGoToInvitation');
-  btnGo.textContent = 'Sí, ir a mi invitación';
-  btnGo.onclick = () => {
-    window.location.href = `details?id=${encodeURIComponent(name)}_${guests}`;
-  };
+    const btnGoToInvitation = document.getElementById('btnGoToInvitation');
+    btnGoToInvitation.textContent = 'Sí, ir a mi invitación';
+    // Construye la URL de redirección cuando el usuario hace clic
+    btnGoToInvitation.onclick = () => {
+        const cleanedName = name.replace(/ /g, '_'); // Reemplaza espacios por guiones bajos
+        // AJUSTA ESTA RUTA BASE SI TU details.html NO ESTÁ EN LA RAÍZ
+        window.location.href = `details.html?id=${encodeURIComponent(cleanedName)}_${guests}`;
+    };
 
-  modalWelcome.show();
+    modalWelcome.show();
 }
 
-// Función para obtener IP pública
-async function getPublicIP() {
-  try {
-    const res = await fetch('https://api.ipify.org?format=json');
-    const data = await res.json();
-    return data.ip || 'Desconocida';
-  } catch {
-    return 'Desconocida';
-  }
-}
+// --- Lógica del formulario de confirmación (Netlify Forms) ---
 
-document.getElementById('formConfirm').addEventListener('submit', async e => {
-  e.preventDefault();
+document.getElementById('formConfirm').addEventListener('submit', e => {
+    // NO usamos e.preventDefault() aquí, porque queremos que Netlify procese el envío del formulario.
+    // Netlify intercepta el envío y luego redirige a la URL especificada en el campo oculto '_redirect'.
+    
+    const nameInput = document.getElementById('inputName');
+    const guestsInput = document.getElementById('inputGuests');
+    
+    const name = nameInput.value.trim();
+    const guests = parseInt(guestsInput.value.trim(), 10);
+    const btnEnviar = e.target.querySelector('button[type="submit"]');
 
-  const name = document.getElementById('inputName').value.trim();
-  const guests = parseInt(document.getElementById('inputGuests').value.trim(), 10);
-  const btnEnviar = e.target.querySelector('button[type="submit"]');
-
-  if (name.length < 6) {
-    alert('Por favor, escribe un nombre válido de al menos 6 caracteres.');
-    return;
-  }
-  if (isNaN(guests) || guests < 1) {
-    alert('Número de invitados inválido. Debe ser al menos 1.');
-    return;
-  }
-  if (guests > 7) {
-    showBellaAlert();
-    return;
-  }
-
-  btnEnviar.textContent = 'Confirmando...';
-  btnEnviar.disabled = true;
-
-  const ipAddress = await getPublicIP();
-
-  const formData = new URLSearchParams();
-  formData.append('name', name);
-  formData.append('guests', guests);
-  formData.append('ipAddress', ipAddress);
-
-  try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbzi7BUjSiEbfXyfssR5aE0fWhelrQfZoPjfBuuQuPjun7IarvlWEYIDFe8GBH1K2_nJ/exec', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-      body: formData.toString(),
-    });
-
-    const result = await response.json();
-
-    if (result.status === 'success') {
-      modalConfirm.hide();
-      localStorage.setItem('confirmado', 'true');
-      localStorage.setItem('nombre', name);
-      localStorage.setItem('invitados', guests);
-
-      alert(result.message);
-      window.location.href = result.redirect;
-    } else {
-      alert(result.message || 'Error desconocido al enviar la confirmación.');
+    // Validación de inputs antes de permitir el envío
+    if (name.length < 6) {
+        alert('Por favor, escribe un nombre válido de al menos 6 caracteres.');
+        e.preventDefault(); // Evita el envío si la validación falla
+        return;
     }
-  } catch (error) {
-    console.error('Error al conectar con el servidor:', error);
+    if (isNaN(guests) || guests < 1) {
+        alert('Número de invitados inválido. Debe ser al menos 1.');
+        e.preventDefault(); // Evita el envío si la validación falla
+        return;
+    }
+    if (guests > 7) {
+        showBellaAlert(); // Muestra la alerta personalizada
+        e.preventDefault(); // Evita el envío si hay demasiados invitados
+        return;
+    }
 
+    // Si las validaciones pasan, Netlify manejará el envío.
+    // Antes del envío, guardamos los datos en localStorage para usarlos en la página de éxito.
     localStorage.setItem('confirmado', 'true');
     localStorage.setItem('nombre', name);
     localStorage.setItem('invitados', guests);
 
-    document.getElementById('welcomeName').textContent = `¡Hola de nuevo, ${name}!`;
-    const modalParagraph = document.getElementById('welcomeMessage');
-    modalParagraph.textContent = 'Tu confirmación fue registrada localmente. Puedes ver tu invitación dando clic abajo.';
-
-    const btnGo = document.getElementById('btnGoToInvitation');
-    btnGo.textContent = 'Ver mi invitación';
-    btnGo.onclick = () => {
-      window.location.href = `details?id=${encodeURIComponent(name)}_${guests}`;
-    };
-
-    modalConfirm.hide();
-    modalWelcome.show();
-  } finally {
-    btnEnviar.textContent = 'Enviar';
-    btnEnviar.disabled = false;
-  }
+    // Opcional: Podrías cambiar el texto del botón aquí para dar feedback
+    // Sin embargo, como el formulario se va a enviar y la página redirigirá,
+    // el usuario no verá esto por mucho tiempo.
+    // btnEnviar.textContent = 'Enviando...';
+    // btnEnviar.disabled = true;
 });
+
+
+// --- Lógica al cargar la página (para el modal de bienvenida si ya confirmó) ---
 
 window.addEventListener('load', () => {
-  if (localStorage.getItem('confirmado') === 'true') {
-    const name = localStorage.getItem('nombre') || 'Invitado';
-    const guests = localStorage.getItem('invitados') || '1';
-    showWelcomeModal(name, guests);
-  }
+    if (localStorage.getItem('confirmado') === 'true') {
+        const name = localStorage.getItem('nombre') || 'Invitado';
+        const guests = localStorage.getItem('invitados') || '1';
+        
+        // Muestra el modal de bienvenida con los datos guardados
+        showWelcomeModal(name, guests);
+    }
 });
+
+// --- Manejo de la página de éxito (success.html) ---
+// Este código es para la página success.html, NO para index.js.
+// Lo incluyo aquí como referencia para la siguiente página.
+/*
+document.addEventListener('DOMContentLoaded', () => {
+    // Recuperar datos de localStorage
+    const confirmado = localStorage.getItem('confirmado');
+    const name = localStorage.getItem('nombre');
+    const guests = localStorage.getItem('invitados');
+
+    if (confirmado === 'true' && name && guests) {
+        const cleanedName = name.replace(/ /g, '_');
+        // Construye la URL final de detalles
+        const finalRedirectUrl = `details.html?id=${encodeURIComponent(cleanedName)}_${guests}`;
+        // Redirige al usuario
+        window.location.href = finalRedirectUrl;
+    } else {
+        // Si no hay datos, redirige a la página principal
+        window.location.href = 'index.html';
+    }
+});
+*/
