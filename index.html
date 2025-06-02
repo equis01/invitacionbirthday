@@ -1,137 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ximena Vázquez - XV Años</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ximena Vázquez - XV Años</title>
 
-  <!-- Bootstrap 5 CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <!-- CSS externo -->
-  <link rel="stylesheet" href="styles/index.css" />
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/index.css" />
 </head>
 <body>
 
-  <div class="invitation-container">
-    <header>
-      <h1>¡Estás Invitado!</h1>
-      <h2>A los XV años de <strong>Ximena Vázquez</strong></h2>
-    </header>
-    <p>
-      Fecha: <strong>Sábado, 19 de Julio de 2025</strong><br />
-      Hora: <strong>5:00 PM</strong>
-    </p>
-    <p>
-      Ubicación: <strong>Salón Ébano, Querétaro</strong>
-    </p>
-    <button class="btn btn-success" id="btnOpenConfirm">Confirmar Asistencia</button>
-  </div>
-
-  <!-- Modal Confirmación -->
-  <div
-    class="modal fade"
-    id="modalConfirm"
-    tabindex="-1"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-4">
-        <h3 class="modal-title mb-3">Confirmar Asistencia</h3>
-        <form id="formConfirm">
-          <input
-            type="text"
-            id="inputName"
-            name="name"
-            placeholder="Tu nombre completo"
-            class="form-control mb-3"
-            required
-            minlength="6"
-          />
-          <input
-            type="number"
-            id="inputGuests"
-            name="guests"
-            placeholder="Número de invitados"
-            class="form-control mb-3"
-            min="1"
-            required
-          />
-          <button type="submit" class="btn btn-primary w-100">Enviar</button>
-        </form>
-        <button
-          type="button"
-          class="btn btn-secondary mt-3 w-100"
-          data-bs-dismiss="modal"
-          id="btnCloseConfirm"
-        >
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Bienvenida -->
-  <div
-    class="modal fade"
-    id="modalWelcome"
-    tabindex="-1"
-    aria-hidden="true"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-4 text-center">
-        <img
-          src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png"
-          alt="Bella Dudando"
-          class="img-fluid mb-3"
-          style="max-width: 150px"
-        />
-        <h5
-          id="welcomeName"
-          style="font-family: 'Playfair Display', serif; color: #4a148c;"
-          class="mb-3"
-        >
-          ¡Hola de nuevo, Invitado!
-        </h5>
-        <p
-          id="welcomeMessage"
-          style="font-family: 'Lora', serif; color: #4A148C; font-size: 1.1rem; margin-bottom: 20px;"
-        >
-          Parece que ya confirmaste tu asistencia. ¿Quieres ir directamente a tu invitación?
+    <div class="invitation-container">
+        <header>
+            <h1>¡Estás Invitado!</h1>
+            <h2>A los XV años de <strong>Ximena Vázquez</strong></h2>
+        </header>
+        <p>
+            Fecha: <strong>Sábado, 19 de Julio de 2025</strong><br />
+            Hora: <strong>5:00 PM</strong>
         </p>
-        <button class="btn btn-primary mb-2 w-100" id="btnGoToInvitation">
-          Sí, ir a mi invitación
-        </button>
-        <button
-          class="btn btn-danger w-100"
-          data-bs-dismiss="modal"
-          id="btnCloseWelcome"
-        >
-          No, quedarme aquí
-        </button>
-      </div>
+        <p>
+            Ubicación: <strong>Salón Ébano, Querétaro</strong>
+        </p>
+        <button class="btn btn-success" id="btnOpenConfirm">Confirmar Asistencia</button>
     </div>
-  </div>
 
-  <!-- Alerta Bella Dudando -->
-  <div id="bellaAlert">
-    <img
-      src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png"
-      alt="Bella Dudando"
-    />
-    <p>¡Oh no! Parece que son demasiados invitados. Por favor, ingresa un número de 7 personas o menos.</p>
-    <button id="bellaAlertCloseBtn">Entendido</button>
-  </div>
+    <div
+        class="modal fade"
+        id="modalConfirm"
+        tabindex="-1"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h3 class="modal-title mb-3">Confirmar Asistencia</h3>
+                <form id="formConfirm" name="contact" method="POST" data-netlify="true">
+                    <input type="hidden" name="form-name" value="contact" />
+                    <input type="hidden" name="_redirect" value="/success.html" /> 
 
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- JS externo -->
-  <script src="scripts/index.js"></script>
+                    <input
+                        type="text"
+                        id="inputName"
+                        name="name" placeholder="Tu nombre completo"
+                        class="form-control mb-3"
+                        required
+                        minlength="6"
+                    />
+                    <input
+                        type="number"
+                        id="inputGuests"
+                        name="guests" placeholder="Número de invitados"
+                        class="form-control mb-3"
+                        min="1"
+                        required
+                    />
+                    <button type="submit" class="btn btn-primary w-100">Enviar</button>
+                </form>
+                <button
+                    type="button"
+                    class="btn btn-secondary mt-3 w-100"
+                    data-bs-dismiss="modal"
+                    id="btnCloseConfirm"
+                >
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="modal fade"
+        id="modalWelcome"
+        tabindex="-1"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+    >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4 text-center">
+                <img
+                    src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png"
+                    alt="Bella Dudando"
+                    class="img-fluid mb-3"
+                    style="max-width: 150px"
+                />
+                <h5
+                    id="welcomeName"
+                    style="font-family: 'Playfair Display', serif; color: #4a148c;"
+                    class="mb-3"
+                >
+                    ¡Hola de nuevo, Invitado!
+                </h5>
+                <p
+                    id="welcomeMessage"
+                    style="font-family: 'Lora', serif; color: #4A148C; font-size: 1.1rem; margin-bottom: 20px;"
+                >
+                    Parece que ya confirmaste tu asistencia. ¿Quieres ir directamente a tu invitación?
+                </p>
+                <button class="btn btn-primary mb-2 w-100" id="btnGoToInvitation">
+                    Sí, ir a mi invitación
+                </button>
+                <button
+                    class="btn btn-danger w-100"
+                    data-bs-dismiss="modal"
+                    id="btnCloseWelcome"
+                >
+                    No, quedarme aquí
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="bellaAlert">
+        <img
+            src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png"
+            alt="Bella Dudando"
+        />
+        <p>¡Oh no! Parece que son demasiados invitados. Por favor, ingresa un número de 7 personas o menos.</p>
+        <button id="bellaAlertCloseBtn">Entendido</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 </html>
