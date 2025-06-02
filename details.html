@@ -1,426 +1,255 @@
 <!DOCTYPE html>
-<html lang="es"><head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:title" content="¡Estás Invitado!">
+    <title>Ximena Vázquez - Detalles de la Invitación</title>
+    <meta property="og:title" content="¡Estás Invitado a los XV Años de Ximena Vázquez!">
     <meta property="og:description" content="Te esperamos en esta ceremonia tan importante para mí...">
     <meta property="og:image" content="https://cinemafaith.com/wp-content/uploads/2017/04/beauty-3-final-2-1050x438.jpg">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-    <!-- favicon -->
     <link rel="shortcut icon" href="https://static.wixstatic.com/media/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png/v1/fill/w_480,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b87bc6_cf11cd3750c7441ea84c34ec41995151~mv2.png" type="image/png">
 
-    <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;900&amp;display=swap" rel="stylesheet">
-    <!-- fin fonts -->
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     
-    <title>Ximena Vázquez</title>
-    <link rel="stylesheet" href="https://eventxv.com/css/oro/oro.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Brygada+1918&amp;family=Manuale&amp;family=MonteCarlo&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://eventxv.com/css/editcontrols.css">
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-T61J1W7BND"></script><script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/oro.css">
+    <link rel="stylesheet" href="styles/editable.css">
 
-gtag('config', 'G-T61J1W7BND');
-</script></head>
-<!-- Google tag (gtag.js) -->
-
-
-
-<body class="" styles="" onclick="PlayAudio()">
-        <!-- Reproductor de audio en bucle -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T61J1W7BND"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T61J1W7BND');
+    </script>
+</head>
+<body onclick="PlayAudio()">
     <audio id="audioInstrumental" autoplay loop>
-    <source src="https://www.dropbox.com/scl/fi/rj8ns7qtd68k9ssxh0h5u/Beauty-and-the-Beast-instrumental.mp3?rlkey=ft6bsjr3w53kw0aufy5qwktkk&st=771keoeu&raw=1" type="audio/mp3">
+        <source src="https://www.dropbox.com/scl/fi/rj8ns7qtd68k9ssxh0h5u/Beauty-and-the-Beast-instrumental.mp3?rlkey=ft6bsjr3w53kw0aufy5qwktkk&st=771keoeu&raw=1" type="audio/mp3">
         Tu navegador no soporta el audio.
     </audio>
-        <script>
-    var invitacion_id = "8";
-        </script>
-<style>
-.cuadro_color {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    margin: 3px;
-}
-.caja-colores{
-    background-color: white;
-    padding: 10px;
-    margin: 2px;
-    width: 180px;
-    position: absolute;
-    margin-left: 50%;
-    left: -90px !important;
-    border-radius: 0 0 5px 5px;
-}
-</style>
 
-    
-<script>
-// Reproductor de audio
-function PlayAudio() {
-    document.getElementById("audioInstrumental").play();
-}
-
-$(document).ready(function() {
-    $('#add-to-cart-btn').on('click', function(e) {
-        e.preventDefault();
-
-        // var invitacion_id = $(this).data('invitacion-id');
-        var color = "";
-        console.log(color);
-        console.log(invitacion_id);
-        var $button = $(this);
-
-        $.ajax({
-            type: 'POST',
-            url: '/cart/add',
-            data: {
-                invitacion_id: invitacion_id,
-                color: color,
-                _token: 'jWhvfN1qJXmQ4065oJD53ga7XoyvmGSr81paKDqK'
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Actualizar el contador del carrito (badge)
-
-                    $('#add-to-cart-btn').removeClass('disabled').text(
-                        'Agregar al carrito');
-
-                    window.location.href = "/shop/checkout";
-
-                    // Añadir clase de deshabilitado al botón recién agregado
-                    $button.addClass('disabled').text('En carrito');
-
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: response.message
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Error al agregar la invitación al carrito.'
-                });
-            }
-        });
-    });
-});
-</script>
-
-<script>
-    // foto 1
-    $(document).ready(function() {
-        var backgroundContainer = $('#imagen_quince');
-
-        // Set the new background URL
-        var newBackgroundURL = 'https://raw.githubusercontent.com/equis01/invitacionbirthday/refs/heads/main/media/ximexv2.jpeg';
-
-        // Change the background URL
-        backgroundContainer.attr('src', newBackgroundURL);
-
-
-    });
-
-    // foto 2
-    $(document).ready(function() {
-        var central = $('.img_demo2');
-
-        // Set the new background URL
-        var nuevaruta = 'https://raw.githubusercontent.com/equis01/invitacionbirthday/refs/heads/main/media/ximexv.jpeg';
-
-        // Change the background URL
-        central.attr('src', nuevaruta);
-    });
-</script>
-
-<div class="space-100"></div>
-<div class="container text-center contenedor">
-    <div class="row">
-        <div class="contenedor-central" style="border-bottom: none;">
-            <div class="col-12 caja-bordes text-center">
-                <p>TE INVITAMOS A CELEBRAR CON NOSOTROS</p><br><br> <br>
-                <h2 class="titulo-quince" style=" margin-bottom: -50px;">Mis</h2>
-                <span class="numero-grande">15</span>
-                <h2 class="titulo-quince" style="margin-top: -40px;">Años</h2>
-                <br><br><br>
-                <h1 class="nombre-quince">
-                                                Ximena Vázquez
-                                        </h1>
-            </div>
-        </div>
-    </div>
-
-    <div class="row no-gutters" style="position: relative">
-                        
-                                    <img id="imagen_quince" src="https://raw.githubusercontent.com/equis01/invitacionbirthday/refs/heads/main/media/ximexv2.jpeg" alt="">
-                </div>
-
-    <div class="row">
-        <div class="contenedor-central" style="border-top: none;">
-            <div class="col-12 caja-bordes text-center">
-                <h3 class="titulo-ka">Reserva Tu Día</h3>
-                <p class="subtitulo">SÁBADO 19 DE JULIO DEL 2025</p>
-                <div class="countdown-outer">
-                    <div class="countdown-container">
-                        <div class="titulo_counter" id="countdown-numbers"></div>
-                        <p class="parrafo-counter" id="countdown-text"></p>
-                    </div>
+    <div class="space-100"></div>
+    <div class="container text-center contenedor">
+        <div class="row">
+            <div class="contenedor-central" style="border-bottom: none;">
+                <div class="col-12 caja-bordes text-center">
+                    <p>TE INVITAMOS A CELEBRAR CON NOSOTROS</p><br><br> <br>
+                    <h2 class="titulo-quince" style=" margin-bottom: -50px;">Mis</h2>
+                    <span class="numero-grande">15</span>
+                    <h2 class="titulo-quince" style="margin-top: -40px;">Años</h2>
+                    <br><br><br>
+                    <h1 class="nombre-quince">Ximena Vázquez</h1>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <div class="space-100"></div>
-    <div class="row">
-        <div class="contenedor-central">
-            <div class="col-12 caja-bordes text-center">
-                <h3 class="titulo-ka">En compañía</h3>
-                <p>DE MIS PADRES Y PADRINOS</p>
-                <div class="space-50"></div>
-                <p class="subtitulo">MIS PADRES</p>
-                <p>
-                                                                                                                                                                                LUIS VAZQUEZ<br>
-                                                                                                                            LAURA MARTINEZ<br>
-                                                                                                                                                                                                                                                                                        </p>
-                <div class="space-50"></div>
-                <p class="subtitulo">MIS PADRINOS</p>
-                <p>
-                                                                                                                                                                                                                                                                                                        CLAUDIA GARCÍA<br>
-                                                                                                                            LAURA GAMA<br>
-                                                                                                                                                                </p>
-                <div class="space-50"></div>
-            </div>
+        <div class="row no-gutters" style="position: relative">
+            <img id="imagen_quince" src="https://raw.githubusercontent.com/equis01/invitacionbirthday/refs/heads/main/media/ximexv2.jpeg" alt="">
         </div>
-    </div>
-    <div class="row no-gutters text-center" style="position: relative">
-                        
-                                    <img class="img_demo2" src="https://raw.githubusercontent.com/equis01/invitacionbirthday/refs/heads/main/media/ximexv.jpeg" alt="">
-        
 
-
-    </div>
-    <div class="row direccion">
-        <div class="contenedor-central">
-            <div class="col-12 caja-bordes text-center">
-                <div class="space-50"></div>
-                                        <p class="subtitulo">CEREMONIA</p>
-                    <h3 class="titulo-ka">13:30 hrs</h3>
-                    <p style="text-transform:uppercase">
-                                                        JESUCRISTO SUMO Y ETERNO SACERDOTE
-                                                    <br>
-                                                        Playa Roqueta, Av. Pie de la Cuesta 101 esquina, Desarrollo San Pablo, 76125 Santiago de Querétaro, Qro.
-                                                </p>
-                                                <a class="btn-general" target="_blank" href="https://maps.app.goo.gl/z8LkhfCErv1v59NL9">IR
-                            AL MAPA</a>
-                                            <div class="space-50"></div>
-                    <hr class="divider">
-                                    <div class="space-50"></div>
-                <p class="subtitulo">RECEPCIÓN</p>
-                <h3 class="titulo-ka">16:30 hrs</h3>
-                <p style="text-transform:uppercase">
-                                                EVENTO
-                                            <br>
-                                                Concord Manzana Ac, La Purísima, 76140 Santiago de Querétaro, Qro.
-                                        </p>
-                                        <a class="btn-general" target="_blank" href="https://maps.app.goo.gl/EE1Fm4a1iWfjQ5rN9">IR
-                        AL MAPA</a>
-                                    <div class="space-50"></div>
-
-            </div>
-        </div>
-    </div>
-    <div class="space-100"></div>
-    <div class="row direccion">
-        <div class="contenedor-central">
-            <div class="col-12 caja-bordes text-center">
-                <div class="space-50"></div>
-
-                
-                <p>PARA QUE DISFRUTES AL MÁXIMO</p>
-                <div class="space-50"></div>
-                <ul class="lista-icons">
-                    <li class="icon-rec"><a href="#" data-bs-toggle="modal" data-bs-target="#mesa"><img class="icon" src="https://eventxv.com/images/oro-rosa/present.png" alt=""></a><br>
-                        <p>MESA DE REGALOS</p>
-                    </li>
-                                                
-                                            <li class="icon-rec" style="border-bottom: none"><a href="#" data-bs-toggle="modal" data-bs-target="#efectivo"><img class="icon" src="https://eventxv.com/images/oro-rosa/efe.png" alt=""></a><br>
-                        <p>REGALOS EN EFECTIVO</p>
-                    </li>
-                </ul>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="space-100"></div>
-    <div class="row direccion">
-        <div class="contenedor-central">
-            <div class="col-12 caja-bordes text-center">
-                <div class="space-50"></div>
-
-                <h3 class="titulo-ka">Tu boleto</h3>
-                                            <p id="guestName"></p>
-                                            <p id="guestCount"></p>
-                <div class="space-50"></div>
-                    <div id="qrCode"></div>
-                <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-                <script>
-                    // Obtener los parámetros de la URL
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const id = urlParams.get('id');
-
-                    if (id) {
-                    // Dividir el parámetro id para extraer el nombre y el número de invitados
-                    const parts = id.split('_');
-                    const guestName = parts[0]; // El nombre antes del guion bajo
-                    const guestCount = parts[1]; // El número después del guion bajo
-
-                    // Mostrar el nombre del invitado en el elemento correspondiente
-                    if (guestName) {
-                        document.getElementById('guestName').innerText = `${guestName}`;
-                    } else {
-                        document.getElementById('guestName').innerText = 'Nombre no especificado';
-                    }
-
-                    // Mostrar el número de invitados en el elemento correspondiente
-                    if (guestCount) {
-                        document.getElementById('guestCount').innerText = `${guestCount} personas`;
-                    } else {
-                        document.getElementById('guestCount').innerText = 'Número de invitados no especificado';
-                    }
-
-                    // Generar el código QR
-                    const qrText = decodeURIComponent(id);
-                    QRCode.toDataURL(qrText, { 
-                        errorCorrectionLevel: 'H', 
-                        color: { dark: '#000000', light: '#00000000' } 
-                    }, function (error, url) {
-                        if (error) {
-                        console.error(error);
-                        document.getElementById('qrCode').innerText = 'Error generando el QR';
-                        } else {
-                        const imgElement = document.createElement('img');
-                        imgElement.src = url;
-                        document.getElementById('qrCode').appendChild(imgElement);
-                        }
-                    });
-                    } else {
-                    document.getElementById('guestName').innerText = 'No se encontró el parámetro "id"';
-                    document.getElementById('guestCount').innerText = 'No se encontró el parámetro "id"';
-                    document.getElementById('qrCode').innerText = 'No se encontró el parámetro "id"';
-                    }
-                </script>
-                
-                <br>
-                <p class="text-mini">PRESENTE EL CÓDIGO PARA INGRESAR AL EVENTO</p>
-                
-                
-                
-                
-                                                                    
-                                                        <script>
-                                $(document).ready(function() {
-                                    $('.btn-inv').click(function(event) {
-                                        event.preventDefault(); // Evita que el enlace realice la acción predeterminada
-                                        alert('Vínculo no disponible en modo vista previa');
-                                    });
-                                });
-                            </script>
-                                                                        
-                                    <div class="space-50"></div>
-
-            </div>
-
-        </div>
-        <div class="space-100"></div>
-        <p class="frase">Hoy doy gracias a todos mis amigos y familia por hacer tan especial este día.</p>
-        <div class="space-100"></div>
-    </div>
-
-
-</div>
-
-<div class="modal fade" id="mesa" tabindex="-1" aria-labelledby="mesaLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mesaLabel">Mesa de regalos</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="text-center"> Si deseas compartir un presente conmigo, te dejo los links a mis
-                    mesas de regalo.</p>
-                <div class="space-50"></div>
-                <div class="col-12 text-center caja-dir">
-                    <p class="parrafo">Mesa de regalos Amazon</p>
-                    <a class="btn-general" target="_blank" href="https://www.amazon.com.mx/">IR
-                        A LA MESA</a>
-                    <div class="space-50"></div>
-                    
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="efectivo" tabindex="-1" aria-labelledby="efectivoLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="efectivoLabel">Regalos en efectivo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                
-                <div class="mesa_regalos_buzon">
-                    <div class="row">
-                        <div class="container" style=" padding:10%;text-align:center;font-size: 14px;">
-                            <img src="https://eventxv.com/images/icon/sobre.png" style="max-width: 90px;margin-bottom: 30px;">
-                            <p>
-                                Mi mejor regalo será contar con tu presencia en este día tan especial para mi, sin
-                                embargo
-                                si deseas compartir un presente conmigo, agradecería fuera en efectivo.
-                            </p>
-                            <p>
-                                Puedes depositarlo en el buzón de regalos que estará localizado en el salón.
-                            </p>
+        <div class="row">
+            <div class="contenedor-central" style="border-top: none;">
+                <div class="col-12 caja-bordes text-center">
+                    <h3 class="titulo-ka">Reserva Tu Día</h3>
+                    <p class="subtitulo">SÁBADO 19 DE JULIO DEL 2025</p>
+                    <div class="countdown-outer">
+                        <div class="countdown-container">
+                            <div class="titulo_counter" id="countdown-numbers"></div>
+                            <p class="parrafo-counter" id="countdown-text"></p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="space-100"></div>
+        <div class="row">
+            <div class="contenedor-central">
+                <div class="col-12 caja-bordes text-center">
+                    <h3 class="titulo-ka">En compañía</h3>
+                    <p>DE MIS PADRES Y PADRINOS</p>
+                    <div class="space-50"></div>
+                    <p class="subtitulo">MIS PADRES</p>
+                    <p>LUIS VAZQUEZ<br>LAURA MARTINEZ</p>
+                    <div class="space-50"></div>
+                    <p class="subtitulo">MIS PADRINOS</p>
+                    <p>CLAUDIA GARCÍA<br>LAURA GAMA</p>
+                    <div class="space-50"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters text-center" style="position: relative">
+            <img class="img_demo2" src="https://raw.githubusercontent.com/equis01/invitacionbirthday/refs/heads/main/media/ximexv.jpeg" alt="">
+        </div>
+        <div class="row direccion">
+            <div class="contenedor-central">
+                <div class="col-12 caja-bordes text-center">
+                    <div class="space-50"></div>
+                    <p class="subtitulo">CEREMONIA</p>
+                    <h3 class="titulo-ka">13:30 hrs</h3>
+                    <p style="text-transform:uppercase">
+                        JESUCRISTO SUMO Y ETERNO SACERDOTE
+                        <br>
+                        Playa Roqueta, Av. Pie de la Cuesta 101 esquina, Desarrollo San Pablo, 76125 Santiago de Querétaro, Qro.
+                    </p>
+                    <a class="btn-general" target="_blank" href="https://maps.app.goo.gl/z8LkhfCErv1v59NL9">IR AL MAPA</a>
+                    <div class="space-50"></div>
+                    <hr class="divider">
+                    <div class="space-50"></div>
+                    <p class="subtitulo">RECEPCIÓN</p>
+                    <h3 class="titulo-ka">16:30 hrs</h3>
+                    <p style="text-transform:uppercase">
+                        EVENTO
+                        <br>
+                        Concord Manzana Ac, La Purísima, 76140 Santiago de Querétaro, Qro.
+                    </p>
+                    <a class="btn-general" target="_blank" href="https://maps.app.goo.gl/EE1Fm4a1iWfjQ5rN9">IR AL MAPA</a>
+                    <div class="space-50"></div>
+                </div>
+            </div>
+        </div>
+        <div class="space-100"></div>
+        <div class="row direccion">
+            <div class="contenedor-central">
+                <div class="col-12 caja-bordes text-center">
+                    <div class="space-50"></div>
+                    <p>PARA QUE DISFRUTES AL MÁXIMO</p>
+                    <div class="space-50"></div>
+                    <ul class="lista-icons">
+                        <li class="icon-rec"><a href="#" data-bs-toggle="modal" data-bs-target="#mesa"><img class="icon" src="https://eventxv.com/images/oro-rosa/present.png" alt=""></a><br>
+                            <p>MESA DE REGALOS</p>
+                        </li>
+                        <li class="icon-rec" style="border-bottom: none"><a href="#" data-bs-toggle="modal" data-bs-target="#efectivo"><img class="icon" src="https://eventxv.com/images/oro-rosa/efe.png" alt=""></a><br>
+                            <p>REGALOS EN EFECTIVO</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="space-100"></div>
+        <div class="row direccion">
+            <div class="contenedor-central">
+                <div class="col-12 caja-bordes text-center">
+                    <div class="space-50"></div>
+                    <h3 class="titulo-ka">Tu boleto</h3>
+                    <p id="guestName"></p>
+                    <p id="guestCount"></p>
+                    <div class="space-50"></div>
+                    <div id="qrCode"></div>
+                    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+                    <br>
+                    <p class="text-mini">PRESENTE EL CÓDIGO PARA INGRESAR AL EVENTO</p>
+                    <div class="space-50"></div>
+                </div>
+            </div>
+        </div>
 
+        <div class="space-100"></div>
+        <div class="row direccion">
+            <div class="contenedor-central">
+                <div class="col-12 caja-bordes text-center">
+                    <div class="space-50"></div>
+                    <h3 class="titulo-ka">¡Comparte la magia!</h3>
+                    <p>Envía la invitación a tus acompañantes o descárgala.</p>
+                    <div class="space-30"></div>
+
+                    <a class="btn-general social-btn whatsapp-btn" id="whatsappShareBtn" href="#" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+                    </a>
+                    <a class="btn-general social-btn email-btn" id="emailShareBtn" href="#">
+                        <i class="far fa-envelope"></i> Enviar por Correo
+                    </a>
+                    <a class="btn-general download-btn" id="downloadInvitationBtn" href="#">
+                        <i class="fas fa-download"></i> Descargar Invitación
+                    </a>
+                    <div class="space-50"></div>
+                </div>
+            </div>
+        </div>
+        <div class="space-100"></div>
+        <div class="space-100"></div>
+    </div>
+
+    <div class="modal" id="mesa" tabindex="-1" aria-labelledby="mesaLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mesaLabel">Mesa de regalos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center"> Si deseas compartir un presente conmigo, te dejo los links a mis mesas de regalo.</p>
+                    <div class="space-50"></div>
+                    <div class="col-12 text-center caja-dir">
+                        <p class="parrafo">Mesa de regalos Amazon</p>
+                        <a class="btn-general" target="_blank" href="https://www.amazon.com.mx/">IR A LA MESA</a>
+                        <div class="space-50"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <div class="modal" id="efectivo" tabindex="-1" aria-labelledby="efectivoLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="efectivoLabel">Regalos en efectivo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mesa_regalos_buzon">
+                        <div class="row">
+                            <div class="container" style=" padding:10%;text-align:center;font-size: 14px;">
+                                <img src="https://eventxv.com/images/icon/sobre.png" style="max-width: 90px;margin-bottom: 30px;">
+                                <p>Mi mejor regalo será contar con tu presencia en este día tan especial para mi, sin embargo si deseas compartir un presente conmigo, agradecería fuera en efectivo.</p>
+                                <p>Puedes depositarlo en el buzón de regalos que estará localizado en el salón.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- script bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
-    </script>
+    <div id="emailFormModal" class="modal">
+        <div class="modal-content">
+            <h3>Enviar Invitación por Correo</h3>
+            <form id="sendEmailForm">
+                <input type="email" id="recipientEmail" placeholder="Correo del destinatario" required>
+                <button type="submit">Enviar Correo</button>
+            </form>
+            <button class="close-btn" onclick="closeEmailFormModal()">Cerrar</button>
+        </div>
+    </div>
 
-</body></html>
+    <div id="detailsAlertModal" class="modal" tabindex="-1" aria-labelledby="detailsAlertModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="https://raw.githubusercontent.com/equis01/ximenav.digital/refs/heads/main/media/bella_dudando.png" alt="Bella Dudando" class="img-fluid mb-3" style="max-width: 150px;">
+                    <h5 class="modal-title mb-3" id="detailsAlertModalLabel" style="font-family: 'Playfair Display', serif; color: #4A148C;">Mensaje:</h5>
+                    <p id="detailsModalMessage"></p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="scripts/details.js"></script>
+</body>
+</html>
