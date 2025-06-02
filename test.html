@@ -81,23 +81,32 @@
     border-radius: 6px;
     cursor: pointer;
   }
+  /* Mensaje de error */
+  #errorMsg {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+    display: none;
+  }
 </style>
 </head>
 <body>
   <div class="container">
     <h1>Registro de Invitados<br>XV Años</h1>
-    <form id="formInvitados">
-      <label for="nombre">Nombre completo</label>
+    <form id="formInvitados" novalidate>
+      <label for="nombre">Nombre completo *</label>
       <input type="text" id="nombre" name="nombre" required />
 
       <label for="correo">Correo electrónico</label>
-      <input type="email" id="correo" name="correo" required />
+      <input type="email" id="correo" name="correo" />
 
       <label for="telefono">Número de teléfono</label>
-      <input type="tel" id="telefono" name="telefono" required pattern="[0-9\s+-]{7,15}" title="Solo números y símbolos +, -" />
+      <input type="tel" id="telefono" name="telefono" pattern="[0-9\s+-]{7,15}" title="Solo números y símbolos +, -" />
 
-      <label for="cantidad">Cantidad de invitados</label>
+      <label for="cantidad">Cantidad de invitados *</label>
       <input type="number" id="cantidad" name="cantidad" required min="1" max="20" />
+
+      <div id="errorMsg"></div>
 
       <button type="submit">Registrar</button>
     </form>
@@ -116,35 +125,38 @@
   const modal = document.getElementById('modal');
   const modalClose = document.getElementById('modalClose');
   const cantidadInput = document.getElementById('cantidad');
+  const errorMsg = document.getElementById('errorMsg');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    errorMsg.style.display = 'none';
+    errorMsg.textContent = '';
+
+    const nombre = form.nombre.value.trim();
+    const correo = form.correo.value.trim();
+    const telefono = form.telefono.value.trim();
     const cantidad = parseInt(cantidadInput.value, 10);
+
+    if (!nombre) {
+      errorMsg.textContent = 'El nombre es obligatorio.';
+      errorMsg.style.display = 'block';
+      return;
+    }
+
+    if (!correo && !telefono) {
+      errorMsg.textContent = 'Debes proporcionar al menos un correo o un teléfono.';
+      errorMsg.style.display = 'block';
+      return;
+    }
 
     if (cantidad > 6) {
       modal.style.display = 'block';
       return;
     }
 
-    // Obtener IP pública
-    let userIP = '';
-    try {
-      const ipRes = await fetch('https://api.ipify.org?format=json');
-      const ipJson = await ipRes.json();
-      userIP = ipJson.ip || '';
-    } catch (error) {
-      console.warn('No se pudo obtener IP pública:', error);
-    }
+    const data = { nombre, correo, telefono, cantidad };
 
-    const data = {
-      nombre: form.nombre.value.trim(),
-      correo: form.correo.value.trim(),
-      telefono: form.telefono.value.trim(),
-      cantidad: cantidad,
-      ip: userIP,
-    };
-
-    const url = 'https://script.google.com/macros/s/AKfycbyB-xIk_b1lRuyFM_909zQD_Jz75tVliGz-APkkTo5rdPKgvHImMgix8z11PqozZm-r/exec'; // Cambia esta URL por la de tu GAS desplegado
+    const url = 'https://script.google.com/macros/s/AKfycbxqpkuYCQ6K9kqxhvXx3NefDdTftcqX4LqSevjBXm09LD2_LXsCLVr2t-UczAxu_6ty/exec'; // Cambia por tu URL GAS
 
     try {
       const res = await fetch(url, {
@@ -160,11 +172,6 @@
         form.reset();
       } else {
         alert(response.message);
-        if(response.message.includes('Hola de nuevo')) {
-          if(confirm(response.message + '\n¿Quieres ir a tu invitación?')) {
-            window.location.href = '/tu-invitacion.html'; // Cambia esta URL a tu página real de invitación
-          }
-        }
       }
     } catch (err) {
       alert('Error al enviar los datos. Intenta más tarde.');
