@@ -173,3 +173,11 @@ input.form-control:focus {
 #bellaAlert button:hover {
   background-color: #9a2222;
 }
+
+/* Estilo para el párrafo del modal bienvenida */
+#welcomeMessage {
+  font-family: 'Lora', serif;
+  color: #4A148C;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
