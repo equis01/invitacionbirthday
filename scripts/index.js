@@ -1,4 +1,4 @@
-// scripts/index.js
+// index.js
 
 const modalConfirmEl = document.getElementById('modalConfirm');
 const modalWelcomeEl = document.getElementById('modalWelcome');
@@ -23,47 +23,37 @@ document.getElementById('bellaAlertCloseBtn').addEventListener('click', () => {
   hideBellaAlert();
 });
 
-function openGoogleCalendar() {
-  const title = 'XV Años de Ximena Vázquez';
-  const startDate = '20250719T170000';
-  const endDate = '20250719T233000';
-  const location = 'Salón Ébano, Querétaro';
-  const description = '¡Te esperamos para celebrar los XV años de Ximena Vázquez!';
+function showWelcomeModal(name, guests) {
+  document.getElementById('welcomeName').textContent = `¡Hola de nuevo, ${name}!`;
+  const modalParagraph = document.getElementById('welcomeMessage');
+  modalParagraph.textContent = 'Parece que ya confirmaste tu asistencia. ¿Quieres ir directamente a tu invitación?';
 
-  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-    title
-  )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
-    description
-  )}&location=${encodeURIComponent(location)}&sf=true&output=xml`;
+  const btnGo = document.getElementById('btnGoToInvitation');
+  btnGo.textContent = 'Sí, ir a mi invitación';
+  btnGo.onclick = () => {
+    window.location.href = `details?id=${encodeURIComponent(name)}_${guests}`;
+  };
 
-  window.open(url, '_blank');
+  modalWelcome.show();
 }
 
-function openMaps() {
-  const locationQuery = 'Salón Ébano, Querétaro';
-  const encodedLocation = encodeURIComponent(locationQuery);
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    const wazeUrl = `waze://?q=${encodedLocation}`;
-    const googleMapsMobileUrl = `https://maps.google.com/?q=${encodedLocation}`;
-    window.location.href = wazeUrl;
-    setTimeout(() => {
-      if (!document.hidden) {
-        window.open(googleMapsMobileUrl, '_blank');
-      }
-    }, 500);
-  } else {
-    const googleMapsDesktopUrl = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
-    window.open(googleMapsDesktopUrl, '_blank');
+// Función para obtener IP pública
+async function getPublicIP() {
+  try {
+    const res = await fetch('https://api.ipify.org?format=json');
+    const data = await res.json();
+    return data.ip || 'Desconocida';
+  } catch {
+    return 'Desconocida';
   }
 }
 
-document.getElementById('formConfirm').addEventListener('submit', e => {
+document.getElementById('formConfirm').addEventListener('submit', async e => {
   e.preventDefault();
 
   const name = document.getElementById('inputName').value.trim();
   const guests = parseInt(document.getElementById('inputGuests').value.trim(), 10);
+  const btnEnviar = e.target.querySelector('button[type="submit"]');
 
   if (name.length < 6) {
     alert('Por favor, escribe un nombre válido de al menos 6 caracteres.');
@@ -78,23 +68,60 @@ document.getElementById('formConfirm').addEventListener('submit', e => {
     return;
   }
 
-  modalConfirm.hide();
+  btnEnviar.textContent = 'Confirmando...';
+  btnEnviar.disabled = true;
 
-  localStorage.setItem('confirmado', 'true');
-  localStorage.setItem('nombre', name);
-  localStorage.setItem('invitados', guests);
+  const ipAddress = await getPublicIP();
 
-  showWelcomeModal(name, guests);
+  const formData = new URLSearchParams();
+  formData.append('name', name);
+  formData.append('guests', guests);
+  formData.append('ipAddress', ipAddress);
+
+  try {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbzi7BUjSiEbfXyfssR5aE0fWhelrQfZoPjfBuuQuPjun7IarvlWEYIDFe8GBH1K2_nJ/exec', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+      body: formData.toString(),
+    });
+
+    const result = await response.json();
+
+    if (result.status === 'success') {
+      modalConfirm.hide();
+      localStorage.setItem('confirmado', 'true');
+      localStorage.setItem('nombre', name);
+      localStorage.setItem('invitados', guests);
+
+      alert(result.message);
+      window.location.href = result.redirect;
+    } else {
+      alert(result.message || 'Error desconocido al enviar la confirmación.');
+    }
+  } catch (error) {
+    console.error('Error al conectar con el servidor:', error);
+
+    localStorage.setItem('confirmado', 'true');
+    localStorage.setItem('nombre', name);
+    localStorage.setItem('invitados', guests);
+
+    document.getElementById('welcomeName').textContent = `¡Hola de nuevo, ${name}!`;
+    const modalParagraph = document.getElementById('welcomeMessage');
+    modalParagraph.textContent = 'Tu confirmación fue registrada localmente. Puedes ver tu invitación dando clic abajo.';
+
+    const btnGo = document.getElementById('btnGoToInvitation');
+    btnGo.textContent = 'Ver mi invitación';
+    btnGo.onclick = () => {
+      window.location.href = `details?id=${encodeURIComponent(name)}_${guests}`;
+    };
+
+    modalConfirm.hide();
+    modalWelcome.show();
+  } finally {
+    btnEnviar.textContent = 'Enviar';
+    btnEnviar.disabled = false;
+  }
 });
-
-function showWelcomeModal(name, guests) {
-  document.getElementById('welcomeName').textContent = `¡Hola de nuevo, ${name}!`;
-  modalWelcome.show();
-
-  document.getElementById('btnGoToInvitation').onclick = () => {
-    window.location.href = `details?id=${encodeURIComponent(name)}_${guests}`;
-  };
-}
 
 window.addEventListener('load', () => {
   if (localStorage.getItem('confirmado') === 'true') {
