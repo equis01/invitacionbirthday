@@ -81,7 +81,6 @@
     border-radius: 6px;
     cursor: pointer;
   }
-  /* Mensaje de error */
   #errorMsg {
     color: red;
     margin-top: 10px;
@@ -101,7 +100,7 @@
       <input type="email" id="correo" name="correo" />
 
       <label for="telefono">Número de teléfono</label>
-      <input type="tel" id="telefono" name="telefono" pattern="[0-9\s+-]{7,15}" title="Solo números y símbolos +, -" />
+      <input type="tel" id="telefono" name="telefono" pattern="[0-9 +\-]{7,15}" title="Solo números, espacios, + y -" />
 
       <label for="cantidad">Cantidad de invitados *</label>
       <input type="number" id="cantidad" name="cantidad" required min="1" max="20" />
@@ -112,7 +111,6 @@
     </form>
   </div>
 
-  <!-- Modal personalizado -->
   <div id="modal">
     <div id="modalContent">
       <p>Para que estás registrando más de 6 invitados, por favor ajusta la cantidad.</p>
@@ -156,13 +154,12 @@
 
     const data = { nombre, correo, telefono, cantidad };
 
-    const url = 'https://script.google.com/macros/s/AKfycbxqpkuYCQ6K9kqxhvXx3NefDdTftcqX4LqSevjBXm09LD2_LXsCLVr2t-UczAxu_6ty/exec'; // Cambia por tu URL GAS
+    const url = 'https://script.google.com/macros/s/AKfycbwiyZOOyZCHdLlhdbf7vWgGzpau3QAoIgt9GhqHoeAbRhN5kcs85RlT-tEin5igHZ3e/exec'; // Cambia por la URL de tu GAS desplegado
 
     try {
       const res = await fetch(url, {
         method: 'POST',
-        mode: 'cors',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       const response = await res.json();
